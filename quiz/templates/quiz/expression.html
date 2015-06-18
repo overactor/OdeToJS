@@ -1,0 +1,19 @@
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>Ode to JavaScript</title>
+        <link rel="stylesheet" type="text/css" href="{% static "quiz/style.css" %}"></link>
+        <script type="text/javascript" src="{% static "quiz/script.js" %}"></script>
+    </head>
+    <body>
+        <p>
+            <input id="expression" type="text" value="{{ expression.expression }}" readonly></input> === <input id="value" type="text"></input> <button onclick="checkEq()">check</button> <button onclick="showAns()">I give up</button>
+        </p>
+        <p id="result"></p>
+        <form method="POST" action="{% if next == 'end' %}{% url 'end' %}{% else %}{% url 'expression' next %}{% endif %}">
+            {% csrf_token %}
+            <input id="next" type="hidden" value="next"></input>
+        </form>
+    </body>
+</html>
